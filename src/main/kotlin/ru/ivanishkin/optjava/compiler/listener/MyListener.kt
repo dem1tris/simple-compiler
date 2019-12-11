@@ -5,9 +5,6 @@ import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.TerminalNode
 import ru.ivanishkin.optjava.compiler.SimpleLangBaseListener
 import ru.ivanishkin.optjava.compiler.SimpleLangParser
-import ru.ivanishkin.optjava.compiler.instructions.Assign
-import ru.ivanishkin.optjava.compiler.instructions.Declarate
-import ru.ivanishkin.optjava.compiler.instructions.Instruction
 import java.util.*
 
 enum class Type {
@@ -21,6 +18,7 @@ class Var(
     val index: Int
 )
 
+/*
 class MyListener : SimpleLangBaseListener() {
 
     private val locals = mutableMapOf<String, Var>()
@@ -59,19 +57,7 @@ class MyListener : SimpleLangBaseListener() {
     }
 
     override fun enterDecl(ctx: SimpleLangParser.DeclContext) {
-        with(ctx) {
-            val type = when (TYPE().text) {
-                "int" -> Type.INT
-                "str" -> Type.STRING
-                else -> error("Unknown type")
-            }
 
-            declElement().forEach {
-                val name = it.NAME()?.text ?: it.assignment()?.NAME()?.text ?: error("decl is not NAME nor assignment")
-                val variable = Var(name, type, locals.size)
-                check(locals.putIfAbsent(name, variable) == null) { "Duplicated declaration" }
-            }
-        }
     }
 
     override fun exitDecl(ctx: SimpleLangParser.DeclContext?) {
@@ -95,7 +81,7 @@ class MyListener : SimpleLangBaseListener() {
     }
 
     override fun enterPrint(ctx: SimpleLangParser.PrintContext?) {
-        super.enterPrint(ctx)
+//        instructions.push(Print())
     }
 
     override fun exitPrint(ctx: SimpleLangParser.PrintContext?) {
@@ -125,4 +111,4 @@ class MyListener : SimpleLangBaseListener() {
     override fun visitErrorNode(node: ErrorNode?) {
         super.visitErrorNode(node)
     }
-}
+}*/

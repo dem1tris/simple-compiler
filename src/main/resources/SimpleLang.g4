@@ -46,21 +46,33 @@ EOL
 WS
 : [ \t]+ -> skip ;
 
-BINOP
-  : '+'
-  | '-'
-  | '*'
-  | '/'
-  | '<='
-  | '<'
-  | '>='
-  | '>'
-  | '=='
-  | '!='
-  ;
-
 NAME
 : LETTER (DIGIT | LETTER)*  ;
+
+binop
+: mulOp
+| addOp
+| compOp
+;
+
+mulOp
+: '*'
+| '/'
+;
+
+addOp
+: '+'
+| '-'
+;
+
+compOp
+: '<='
+| '<'
+| '>='
+| '>'
+| '=='
+| '!='
+;
 
 simpleExpr
 : NUM
@@ -68,9 +80,20 @@ simpleExpr
 | NAME
 ;
 
-expr
+mulExpr
 : simpleExpr
-| expr BINOP expr ;
+| mulExpr mulOp mulExpr
+;
+
+addExpr
+: mulExpr
+| addExpr addOp addExpr
+;
+
+expr
+: addExpr
+| addExpr compOp addExpr
+;
 
 assignment
 : NAME '=' expr ;
